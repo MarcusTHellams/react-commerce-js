@@ -13,20 +13,6 @@ import { stripHtml } from 'string-strip-html';
 
 export const ProductsListComponent = ({ products }) => {
   console.log('products: ', products);
-  const rowLength = 4;
-  let itemCount = 0;
-  let itemRow = [];
-  const rows = [];
-  products.forEach((product, index) => {
-    itemRow.push(product);
-    itemCount++;
-
-    if (itemCount >= rowLength || index === products.length - 1) {
-      itemCount = 0;
-      rows.push(itemRow.slice());
-      itemRow = [];
-    }
-  });
   return (
     <>
       <div className='row row-cols-1 row-cols-md-6'>
