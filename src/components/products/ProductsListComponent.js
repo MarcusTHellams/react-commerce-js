@@ -15,7 +15,7 @@ export const ProductsListComponent = ({ products }) => {
   console.log('products: ', products);
   return (
     <>
-      <div className='row row-cols-1 row-cols-md-6'>
+      <div className='row row-cols-1 row-cols-lg-6'>
         {products.map((product) => {
           return (
             <Fragment key={product.id}>
