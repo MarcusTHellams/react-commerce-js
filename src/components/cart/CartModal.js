@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
-import { Fragment, useCallback } from 'react';
+import { Fragment } from 'react';
 import BlockUi from 'react-block-ui';
-import { useMutation } from 'react-query';
 import {
   Modal,
   ModalBody,
@@ -17,78 +16,19 @@ import {
   Table,
   Alert,
 } from 'reactstrap';
-import { useCartContext } from '../../context/cartContext';
-import useDynamicRefs from '../../hooks/useDynamicRefs';
-import { commerce } from '../../lib/commerce';
-
-const mutationFn = async ({ lineItemId, quantity }) => {
-  const { cart } = await commerce.cart.update(lineItemId, { quantity });
-  return cart;
-};
-
-const removeMutationFn = async ({ lineItemId }) => {
-  const { cart } = await commerce.cart.remove(lineItemId);
-  return cart;
-};
-
-const emptyMutationFn = async () => {
-  const { cart } = await commerce.cart.empty();
-  return cart;
-};
+import { useCartModal } from '../../hooks/useCartModal';
 
 export const CartModal = ({ line_items, ...modalProps }) => {
-  const { cart, setCart } = useCartContext();
-
-  const onSuccess = useCallback(
-    (cart) => {
-      setCart(cart);
-    },
-    [setCart]
-  );
-
-  const { mutate, isLoading } = useMutation({
-    mutationKey: 'updateCart',
-    mutationFn,
-    onSuccess,
-  });
-
-  const removeFromCart = useMutation({
-    mutationKey: 'removeFromCart',
-    mutationFn: removeMutationFn,
-    onSuccess,
-  });
-
-  const emptyCart = useMutation({
-    mutationKey: 'emptyCart',
-    mutationFn: emptyMutationFn,
-    onSuccess: (cart) => {
-      onSuccess(cart);
-      modalProps.toggle();
-    },
-  });
-
-  const removeFromCartHandler = (lineItemId) => {
-    removeFromCart.mutate({ lineItemId });
-  };
-
-  const emptyCartHandler = () => {
-    emptyCart.mutate();
-  };
-
-  const { getRef, setRef } = useDynamicRefs();
-
-  const addSubtractHandler = (e) => {
-    const {
-      dataset: { trigger, action },
-    } = e.target;
-    const input = getRef(trigger).current;
-    if (action === 'add') {
-      input.value = +input.value + 1;
-    } else {
-      input.value = +input.value - 1;
-    }
-    mutate({ lineItemId: trigger, quantity: input.value });
-  };
+  const {
+    addSubtractHandler,
+    cart,
+    emptyCart,
+    emptyCartHandler,
+    isLoading,
+    removeFromCart,
+    removeFromCartHandler,
+    setRef,
+  } = useCartModal(modalProps);
 
   return (
     <>
