@@ -124,7 +124,7 @@ export const CartModal = ({ line_items, ...modalProps }) => {
                             <InputGroup size='sm'>
                               <InputGroupAddon addonType='prepend'>
                                 <Button
-                                  color='primary'
+                                  color='link'
                                   outline
                                   onClick={addSubtractHandler}
                                   data-trigger={item?.id}
@@ -142,7 +142,7 @@ export const CartModal = ({ line_items, ...modalProps }) => {
                               />
                               <InputGroupAddon addonType='append'>
                                 <Button
-                                  color='primary'
+                                  color='link'
                                   outline
                                   onClick={addSubtractHandler}
                                   data-trigger={item?.id}
