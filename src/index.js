@@ -3,10 +3,11 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
-import "./index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import { CartProvider } from "./context/cartContext";
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import 'react-block-ui/style.css';
 
 const queryClient = new QueryClient();
 
